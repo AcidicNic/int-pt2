@@ -30,16 +30,35 @@ def check_nearby(y, x, island_map, checked_pairs=None):
     return checked_pairs
 
 
-# 2. Print all permutations of a String
+# 2. Determine if 2 Strings are anagrams
+def are_anagrams(str1, str2):
+    return sorted(list(str1.lower())) == sorted(list(str2.lower()))
 
 # 3. Find the shortest palindrome in a String
-
+def shortest_palindrome(text):
+    for palindrome_len in reversed(range(3, len(text))):
+        for i in range(palindrome_len, len(text)):
+            if is_palindrome(text[i-palindrome_len:i]):
+                return text[i-palindrome_len:i]
+def is_palindrome(text):
+    text = text.lower()
+    left = 0
+    right = len(text) - 1
+    while left < right:
+        if text[left] == text[right]:
+            left += 1
+            right -= 1
+        else:
+            return False
+    return True
 # 4. Write a function that prints out the binary form of an int
 
 # 5. Implement squareroot function
 
+
 if __name__ == '__main__':
-    # Count islands test
+    """ count_islands() test """
+    print("\ncount_islands() Tests")
     island_map = [
         [1, 0, 0, 1, 0, 0, 1, 1, 0],
         [1, 1, 0, 0, 0, 1, 1, 0, 0],
@@ -69,4 +88,25 @@ if __name__ == '__main__':
     ]
     # Should return 8
     print(count_islands(island_map))
+
+    """ are_anagrams() """
+    print("\nare_anagrams() Tests")
+    # False
+    print(are_anagrams("hello", "hell"))
+    # True
+    print(are_anagrams("cat", "tac"))
+    # True
+    print(are_anagrams("theeyes", "theysee"))
+
+    """ shortest_palindrome() """
+    print("\nshortest_palindrome() Tests")
+    # lol
+    print(shortest_palindrome("helolo"))
+    # None
+    print(shortest_palindrome("cat"))
+    # teet
+    print(shortest_palindrome("teeth"))
+    # None
+    print(shortest_palindrome("help"))
+
 
